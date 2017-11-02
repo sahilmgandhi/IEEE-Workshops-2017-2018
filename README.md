@@ -1,8 +1,20 @@
 # IEEE_Workshops_2017_2018
 
-Code base for the IEEE 2017 to 2018 Workshop year.
+Code base, powerpoints, and other materials for the IEEE 2017 to 2018 Workshop year.
 
-# Android + Bluetooth Workshop (Android_Bluetooth folder)
+
+# Lab Tools and Debugging Workshop
+
+The powerpoint for the workshop is available in the folder.
+
+# Through-Hole Soldering Workshop
+
+The powerpoint as well as the .elf and .hex files are avaiable in the folder to program the MCU.
+
+To program the ATMEGA-328, you can use a program like avrdude or even the Arduino IDE with an appropriate
+programmer. You can also use another Arduino (like an Uno or a Nano) as a programmer for the ATMEGA-328.
+
+# Android + Bluetooth Workshop
 
 ### Instructions to Use:
 
