@@ -1,57 +1,96 @@
 #include <SoftwareSerial.h>
-String message;                 //string that stores the incoming message
+#include <Math.h>
 
-SoftwareSerial btSerial(2, 3);      // rx, tx 
+// String that stores the incoming message
+String message;                 
+
+// 2 (D2) will be used for rx, 3 (D3) will be used for tx 
+SoftwareSerial btSerial(2, 3);      
+
+/* 
+ * MODIFY THIS VALUE IF YOU WANT TO PROGRAM, OR NOT  
+ */
+int PROGRAMMING_MODE = 1;
+/*
+ * END MODIFICATION
+ */
 
 void setup()
 {
-  // use 38400 for programming the AT mode!
-  btSerial.begin(9600);
+  // Bluetooth Module needs 38400 for programming, 9600 for regular operation. 
+  // When programming, you need to connect EN to 3.3V, and press the button on the HC-05
+  
+  if (PROGRAMMING_MODE){
+    btSerial.begin(38400);  
+  }
+  else{
+    btSerial.begin(9600);
+  }
+
+  // This is the Arduino Serial Monitor's Baud Rate
   Serial.begin(9600);
   while (!Serial){
     ;
   }
 
-  String name = "AT+NAME=SahilBT\r\n";            // using AT commands to set name
+  // using AT commands to set name
+  String name = "AT+NAME=SahilBT\r\n";            
   btSerial.print("AT\r\n");
-  Serial.print("AT\r\n");                         // EN Pin MUST be set to 3.3V and also button pressed until turned on!
-  delay(500);                                     // delay between 20ms and 1s required for AT commands
+  Serial.print("AT\r\n");                         
+  
+  // Delay between 20ms and 1s required between AT commands
+  delay(500);                                     
 
+  // Clearing BT buffer
   while(btSerial.available())
-    Serial.write(btSerial.read());                // clearing BT buffer
+    Serial.write(btSerial.read());                
 
+  // Print out the name
   Serial.print(name);
   btSerial.print(name);
   delay(500);
 
+  // Print out what the BlueTooth reads
   while(btSerial.available())
     Serial.write(btSerial.read());
 
+  // Read the MAC Address of the BlueTooth module if you want to use it in the Android Application
   Serial.print("AT+ADDR\r\n");
-  btSerial.print("AT+ADDR\r\n");    // used to see MacAddress of module
+  btSerial.print("AT+ADDR\r\n");    
   delay(500);
   while(btSerial.available())
-    Serial.write(btSerial.read());  //  print address to com port
+    Serial.write(btSerial.read());  
 }
 
 void loop()
 {
-  delay(10);                                    // delay to let bt buffer fill up a bit
-  while(btSerial.available())                   //while there is data available on the serial monitor
+  // Delay to let BlueTooth buffer fill up a bit
+  delay(10);                             
+  
+  // While there is data available on the serial monitor read what it has
+  while(btSerial.available())                   
   {
-    message+=char(btSerial.read());               //store string from serial command
+    // Store string from serial command
+    message+=char(btSerial.read());               
   }
   while(Serial.available()){
+    // If you want to add any message from the Arduino Serial Monitor
     message+=char(Serial.read());
   }
-  
+
+  // If data is available, then we want to write that back out
   if(message!="")
-  {//if data is available
-    String s = "This is Bluetooth SahilBT!\r\n";
-    btSerial.println(s);                        // send data back to Android device
+  {
+    String s = message + " Received" + " Tranmitting back a random number " + random()*12;
+    
+    // Send data back to Android device
+    btSerial.println(s);                        
     Serial.println(s);
-    message="";                                 //clear the data
+
+    // Clear the data
+    message="";                                 
   }
+
   delay(200); 
 }
     
