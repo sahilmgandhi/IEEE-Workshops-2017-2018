@@ -26,6 +26,9 @@ import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
 
+    /*
+        Various variables used later in the code.
+     */
     private final UUID PORT_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); //Serial Port Service ID ... fixed value!
     // private final String DEVICE_ADDRESS="20:13:10:15:33:66";             // This is the bluetooth address of your bluetooth module
     private TextView recText;
@@ -37,12 +40,22 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothSocket socket;
     private OutputStream outputStream;
     private InputStream inputStream;
-    private String btName = "SahilBT";
     byte buffer[];
+
+
+    /*
+    * Modify this value
+     */
+    private String btName = "INSERT_NAME_HERE";
+    /*
+    * End modification
+     */
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Create the different elements for the UI and set the content and button stats
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -60,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
         setButtons(buttonState);
     }
 
+    /**
+     * Set the button states
+     * @param b     Button state
+     */
     private void setButtons(boolean b) {
         startB.setEnabled(!b);
         sendB.setEnabled(b);
@@ -67,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
         stopB.setEnabled(b);
     }
 
+    /**
+     * Inflate the menu
+     * @param menu  Menu
+     * @return True when the method finishes
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -74,11 +96,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
+     * @param item
+     * @return parent item selected
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -88,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Initialize the bluetooth connection
+     * @return  true if initialized properly, false otherwise
+     */
     public boolean BlueToothInit() {
         boolean foundBT = false;
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -122,6 +150,10 @@ public class MainActivity extends AppCompatActivity {
         return foundBT;
     }
 
+    /**
+     * Connect to the Bluetooth Module
+     * @return  True if connection was created, False otherwise
+     */
     public boolean BlueToothConnect() {
         boolean connected = true;
         try {
@@ -150,7 +182,9 @@ public class MainActivity extends AppCompatActivity {
         return connected;
     }
 
-
+    /**
+     * Listen for the data and use a thread to be able to listen in the background
+     */
     void beginListeningForData() {
         final Handler handler = new Handler();
         stopThread = false;
@@ -190,6 +224,10 @@ public class MainActivity extends AppCompatActivity {
         thread.start();
     }
 
+    /**
+     * When the start button is clicked, the bluetooth connection should initiate
+     * @param view
+     */
     public void onClickStart(View view) {
         if (BlueToothInit()) {
             if (BlueToothConnect()) {
@@ -204,6 +242,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * When the send button is clicked, the data should send to the bluetooth module
+     * @param view
+     */
     public void onClickSend(View view) {
         String s = sendText.getText().toString();
         s.concat("\r\n");
@@ -215,6 +257,11 @@ public class MainActivity extends AppCompatActivity {
         recText.append("\nSentData: " + s + "\n");
     }
 
+    /**
+     * When the stop button is clicked, the connection is closed
+     * @param view
+     * @throws IOException
+     */
     public void onClickStop(View view) throws IOException {
         outputStream.close();
         inputStream.close();
@@ -225,8 +272,11 @@ public class MainActivity extends AppCompatActivity {
         recText.append("\nConnection closed\n");
     }
 
+    /**
+     * When the clear button is clicked, the text is cleared
+     * @param view
+     */
     public void onClickClear(View view) {
         recText.setText("");
     }
-
 }
