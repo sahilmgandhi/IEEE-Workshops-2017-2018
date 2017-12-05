@@ -9,6 +9,7 @@ SoftwareSerial btSerial(2, 3);
 
 /* 
  * MODIFY THIS VALUE IF YOU WANT TO PROGRAM, OR NOT  
+ * 1 represents programming mode, 0 represents in regular connection mode. 
  */
 int PROGRAMMING_MODE = 1;
 /*
@@ -21,14 +22,16 @@ void setup()
   // When programming, you need to connect EN to 3.3V, and press the button on the HC-05
   
   if (PROGRAMMING_MODE){
-    btSerial.begin(38400);  
+    btSerial.begin(38400);
+    Serial.begin(38400);  
   }
   else{
     btSerial.begin(9600);
+    Serial.begin(9600);
   }
 
   // This is the Arduino Serial Monitor's Baud Rate
-  Serial.begin(9600);
+  
   while (!Serial){
     ;
   }
@@ -43,7 +46,7 @@ void setup()
 
   // Clearing BT buffer
   while(btSerial.available())
-    Serial.write(btSerial.read());                
+    Serial.print(btSerial.read());                
 
   // Print out the name
   Serial.print(name);
@@ -52,14 +55,14 @@ void setup()
 
   // Print out what the BlueTooth reads
   while(btSerial.available())
-    Serial.write(btSerial.read());
+    Serial.print(btSerial.read());
 
   // Read the MAC Address of the BlueTooth module if you want to use it in the Android Application
   Serial.print("AT+ADDR\r\n");
   btSerial.print("AT+ADDR\r\n");    
   delay(500);
   while(btSerial.available())
-    Serial.write(btSerial.read());  
+    Serial.print(btSerial.read());  
 }
 
 void loop()
@@ -81,7 +84,7 @@ void loop()
   // If data is available, then we want to write that back out
   if(message!="")
   {
-    String s = message + " Received" + " Tranmitting back a random number " + random()*12;
+    String s = message + " Received" + " Tranmitting back a number: 6";
     
     // Send data back to Android device
     btSerial.println(s);                        
