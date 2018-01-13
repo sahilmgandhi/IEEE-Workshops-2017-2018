@@ -20,18 +20,17 @@ void setup()
 {
   // Bluetooth Module needs 38400 for programming, 9600 for regular operation. 
   // When programming, you need to connect EN to 3.3V, and press the button on the HC-05
-  
+
   if (PROGRAMMING_MODE){
     btSerial.begin(38400);
-    Serial.begin(38400);  
   }
   else{
     btSerial.begin(9600);
-    Serial.begin(9600);
   }
 
   // This is the Arduino Serial Monitor's Baud Rate
-  
+
+  Serial.begin(9600);
   while (!Serial){
     ;
   }
@@ -40,13 +39,13 @@ void setup()
   String name = "AT+NAME=SahilBT\r\n";            
   btSerial.print("AT\r\n");
   Serial.print("AT\r\n");                         
-  
+
   // Delay between 20ms and 1s required between AT commands
   delay(500);                                     
 
   // Clearing BT buffer
   while(btSerial.available())
-    Serial.print(btSerial.read());                
+    Serial.write(btSerial.read());                
 
   // Print out the name
   Serial.print(name);
@@ -55,7 +54,7 @@ void setup()
 
   // Print out what the BlueTooth reads
   while(btSerial.available())
-    Serial.print(btSerial.read());
+    Serial.write(btSerial.read());                
 
   // Read the MAC Address of the BlueTooth module if you want to use it in the Android Application
   Serial.print("AT+ADDR\r\n");
@@ -69,7 +68,7 @@ void loop()
 {
   // Delay to let BlueTooth buffer fill up a bit
   delay(10);                             
-  
+
   // While there is data available on the serial monitor read what it has
   while(btSerial.available())                   
   {
@@ -85,7 +84,7 @@ void loop()
   if(message!="")
   {
     String s = message + " Received" + " Tranmitting back a number: 6";
-    
+
     // Send data back to Android device
     btSerial.println(s);                        
     Serial.println(s);
@@ -96,4 +95,4 @@ void loop()
 
   delay(200); 
 }
-    
+
