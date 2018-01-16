@@ -144,14 +144,10 @@
 </layers>
 <board>
 <plain>
-<wire x1="27.94" y1="0" x2="100" y2="0" width="0" layer="20"/>
-<wire x1="100" y1="0" x2="100" y2="80" width="0" layer="20"/>
-<wire x1="100" y1="80" x2="0" y2="80" width="0" layer="20"/>
-<wire x1="0" y1="80" x2="0" y2="25.4" width="0" layer="20"/>
-<wire x1="0" y1="0" x2="0" y2="25.4" width="0.1524" layer="20"/>
-<wire x1="0" y1="25.4" x2="27.94" y2="25.4" width="0.1524" layer="20"/>
-<wire x1="27.94" y1="25.4" x2="27.94" y2="0" width="0.1524" layer="20"/>
-<wire x1="27.94" y1="0" x2="0" y2="0" width="0.1524" layer="20"/>
+<wire x1="0" y1="0" x2="27.94" y2="0" width="0.1524" layer="20"/>
+<wire x1="27.94" y1="0" x2="27.94" y2="25.4" width="0.1524" layer="20"/>
+<wire x1="27.94" y1="25.4" x2="0" y2="25.4" width="0.1524" layer="20"/>
+<wire x1="0" y1="25.4" x2="0" y2="0" width="0.1524" layer="20"/>
 </plain>
 <libraries>
 <library name="adafruit" urn="urn:adsk.eagle:library:420">
@@ -591,26 +587,20 @@ design rules under a new name.</description>
 <wire x1="2.96" y1="13.513" x2="2.96" y2="11.43" width="0.8128" layer="1"/>
 </signal>
 <signal name="9V">
-<polygon width="0.1524" layer="1">
-<vertex x="0" y="25.4"/>
-<vertex x="0" y="0"/>
-<vertex x="27.94" y="0"/>
-<vertex x="27.94" y="25.4"/>
-</polygon>
 <contactref element="U1" pad="4"/>
 <contactref element="U1" pad="8"/>
 <contactref element="R1" pad="2"/>
 <contactref element="J1" pad="+2"/>
 <contactref element="J1" pad="+1"/>
 <contactref element="J1" pad="+3"/>
+<polygon width="0.1524" layer="1">
+<vertex x="0" y="0"/>
+<vertex x="27.94" y="0"/>
+<vertex x="27.94" y="25.4"/>
+<vertex x="0" y="25.4"/>
+</polygon>
 </signal>
 <signal name="GND">
-<polygon width="0.1524" layer="16">
-<vertex x="0" y="25.4"/>
-<vertex x="27.94" y="25.4"/>
-<vertex x="27.94" y="0"/>
-<vertex x="0" y="0"/>
-</polygon>
 <contactref element="U1" pad="1"/>
 <contactref element="C2" pad="2"/>
 <contactref element="C1" pad="2"/>
@@ -638,6 +628,12 @@ design rules under a new name.</description>
 <via x="12.7" y="23.7744" extent="1-16" drill="0.6604"/>
 <wire x1="12.7" y1="23.7744" x2="11.0744" y2="23.7744" width="0.6096" layer="1"/>
 <wire x1="11.0744" y1="23.7744" x2="10.37" y2="23.07" width="0.6096" layer="1"/>
+<polygon width="0.1524" layer="16">
+<vertex x="0" y="0"/>
+<vertex x="27.94" y="0"/>
+<vertex x="27.94" y="25.4"/>
+<vertex x="0" y="25.4"/>
+</polygon>
 </signal>
 </signals>
 </board>
