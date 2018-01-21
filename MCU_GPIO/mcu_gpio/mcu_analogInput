@@ -1,0 +1,31 @@
+
+const byte adcPin = 0;  // A0
+  
+bool working;
+  
+void setup ()
+  {
+  Serial.begin (115200);
+  Serial.println ();
+
+  ADCSRA =  bit (ADEN);   // turn ADC on
+  ADCSRA |= bit (ADPS0) |  bit (ADPS1) | bit (ADPS2);  // Prescaler of 128
+  ADMUX =   bit (REFS0) | (adcPin & 0x07);  // AVcc   
+  }  // end of setup
+
+void loop () 
+  { 
+  if (!working)
+    {
+    bitSet (ADCSRA, ADSC);  // start a conversion
+    working = true;
+    }
+    
+  if (bit_is_clear(ADCSRA, ADSC))   // the ADC clears the bit when done
+    {
+    int value = ADC;  // read result
+    working = false;
+    Serial.println (value* (5.0 / 1023.0)); //Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V)
+    delay (500);  
+    }
+  }  // end of loop  
