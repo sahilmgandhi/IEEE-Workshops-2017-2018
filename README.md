@@ -14,6 +14,10 @@ The powerpoint as well as the .elf and .hex files are avaiable in the folder to 
 To program the ATMEGA-328, you can use a program like avrdude or even the Arduino IDE with an appropriate
 programmer. You can also use another Arduino (like an Uno or a Nano) as a programmer for the ATMEGA-328.
 
+# Eagle Workshop
+
+The schematic that we used and the PCB that we created from it are available in this folder.
+
 # Android + Bluetooth Workshop
 
 ### Instructions to Use:
@@ -38,3 +42,19 @@ the AT-commands. Connect to the device, and then open up the application. Rememb
 on the Arduino is set to 9600 (if you are using the HC-05) in order to properly send and receive data from your
 Android device.
 
+
+# 3D_Printing 
+
+The powerpoint as well as the 3D printing guide to making objects for the lab's Dreammaker printer are available in this folder.
+
+# Advanced MCU Workshop
+
+The powerpoint and the code that we went over is available in this folder.
+
+# SMD Soldering
+
+The schematic and board that we used for this workshop are available in this folder.
+
+# SPI Communication Workshop
+
+The code we went over along with the powerpoint presentation are available in this folder. 
