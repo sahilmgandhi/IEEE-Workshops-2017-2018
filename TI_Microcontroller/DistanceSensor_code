@@ -1,0 +1,30 @@
+#define Pin1 19 // Pin2.5
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly: 
+  long duration1, cm1;
+  long cms = 0;
+
+  pinMode(Pin1, OUTPUT);
+  digitalWrite(Pin1, LOW);
+  delayMicroseconds(2);
+  digitalWrite(Pin1, HIGH);
+  delayMicroseconds(5);
+  digitalWrite(Pin1, LOW);
+  pinMode(Pin1, INPUT);
+  duration1 = pulseIn(Pin1, HIGH);
+  delay(10);
+
+  cms = msToCm(duration1);
+  Serial.print(cms);
+  Serial.println("cm by Sensor");
+}
+
+long msToCm(long ms){
+  return ms/29/2;
+}
