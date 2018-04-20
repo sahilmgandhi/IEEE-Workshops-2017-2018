@@ -58,3 +58,7 @@ The schematic and board that we used for this workshop are available in this fol
 # SPI Communication Workshop
 
 The code we went over along with the powerpoint presentation are available in this folder. 
+
+# TI Microcontroller
+
+In this workshop, we use the MSP432P401R Launchpad from Texas Instruments. In our presentation, we included a simple project that allows you to use the launchpad to control the ultrasonic distance sensor. The serial port will print the sensor's distance to the object it is directly facing. You can find the original code in the DistanceSensor_code file.
